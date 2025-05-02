@@ -34,7 +34,7 @@ router.get("/:id", async (req, res, next) => {
             .populate({path: 'comments', select: '_id content writer'});
 
         if (!post) {
-            return res.status(404).json({ message: "Posten hittades inte." });
+            return res.status(404).json({ message: "Ingen Post som matchar detta Id hittades" });
         }
 
         res.status(200).json(post);
@@ -97,7 +97,7 @@ router.put("/:id", authToken,[
 
         const post = await Post.findById(id);
         if (!post) {
-            return res.status(404).json({ message: "Post hittades inte." });
+            return res.status(404).json({ message: "Ingen Post som matchar detta Id hittades" });
         }
 
         if (post.writer.toString() !== req.writer.id) {
@@ -126,7 +126,7 @@ router.delete("/:id", authToken, async (req, res, next) => {
 
         const post = await Post.findById(id);
         if (!post) {
-            return res.status(404).json({ message: "Post hittades inte." });
+            return res.status(404).json({ message: "Ingen Post som matchar detta Id hittades" });
         }
 
         if (post.writer.toString() !== req.writer.id) {

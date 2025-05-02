@@ -33,7 +33,7 @@ router.get("/", async (req, res, next) => {
             .populate({ path: "post", select: "title"});
 
         if (!comment) {
-            return res.status(404).json({ message: "Kommentaren hittades inte." });
+            return res.status(404).json({ message: "Ingen kommentar som matchar detta Id hittades" });
         }
 
         res.status(200).json(comment);
@@ -99,7 +99,7 @@ router.put("/:id", authToken, [
   
       const comment = await Comment.findById(id);
       if (!comment) {
-        return res.status(404).json({ message: "Kommentar hittades inte." });
+        return res.status(404).json({ message: "Ingen kommentar som matchar detta Id hittades" });
       }
   
       if (comment.writer.toString() !== req.writer.id) {
@@ -127,7 +127,7 @@ router.delete("/:id", authToken, async (req, res, next) => {
   
       const comment = await Comment.findById(id);
       if (!comment) {
-        return res.status(404).json({ message: "Kommentar hittades inte." });
+        return res.status(404).json({ message: "Ingen kommentar som matchar detta Id hittades" });
       }
   
       if (comment.writer.toString() !== req.writer.id) {
